@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
         charController.Move(velocity * Time.fixedDeltaTime, isCrouching, isClimbing);
         animator.SetFloat("Velocity", Mathf.Abs(velocity));
-        if (rigidbody.velocity.y < -0.2f)
+        if (rigidbody.velocity.y < -0.5f)
             animator.SetBool("IsFalling", true);
         else
             animator.SetBool("IsFalling", false);
