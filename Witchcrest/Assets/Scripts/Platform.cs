@@ -12,7 +12,6 @@ public class Platform : MonoBehaviour
     bool PlayerCanPass = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger entered" + collision.tag);
         if (collision.tag == "Player")
         {
             

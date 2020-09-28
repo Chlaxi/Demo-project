@@ -28,7 +28,6 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Damage taken: " + damage);
         health -= damage;
 
         animator.SetTrigger("Hit");
@@ -58,7 +57,6 @@ public class Enemy : MonoBehaviour
         rigidbody.sharedMaterial = deathPhysicsMat;
         collider.sharedMaterial = deathPhysicsMat;
         animator.SetBool("IsDead", true);
-        Debug.Log("Dead");
         gameObject.layer = 13; //Sets their layer to "DeadEnemy" layer, so they won't collide with player, but can still ragdoll a bit.
 
         //Eventually disappar?
