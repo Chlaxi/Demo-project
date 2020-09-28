@@ -18,9 +18,9 @@ TagManager:
   - Surface
   - Player
   - Pass Through
-  - 
-  - 
-  - 
+  - DeadEnemy
+  - Enemy
+  - PlayerProjectile
   - 
   - 
   - 

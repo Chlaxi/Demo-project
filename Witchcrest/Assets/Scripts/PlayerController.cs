@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController2D))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Health")]
+    public HealthSO health;
+    [SerializeField] private bool isInvincible;
+
     [Header("Attack")]
     [SerializeField] private Vector2 attackOffset;
     [SerializeField] private Rigidbody2D Projectile;
@@ -21,6 +26,8 @@ public class PlayerController : MonoBehaviour
     
 
     [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private Light2D light;
     [SerializeField] private Rigidbody2D rigidbody;
     [SerializeField] private CharacterController2D charController;
     private bool isJumping;
@@ -44,6 +51,9 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         velocity = Input.GetAxisRaw("Horizontal") * speed;
+
+        if (Input.GetKeyDown("t"))
+            Hurt(1);
 
         if(Input.GetButtonDown("Jump"))
         {
@@ -75,13 +85,13 @@ public class PlayerController : MonoBehaviour
             isCrouching = false;
         }
 
-        //if (Input.GetButtonDown("Attack")){
-        //    Attack();
-        //}
+        if (Input.GetButtonDown("Fire1")){
+            Attack();
+        }
 
         if (!canAttack)
         {
-            staminaSlider.value = _attackTimer;
+            //staminaSlider.value = _attackTimer;
             _attackTimer -= Time.deltaTime;
             if (_attackTimer <= 0)
             {
@@ -118,10 +128,8 @@ public class PlayerController : MonoBehaviour
 
 
 
-        Rigidbody2D _projectile = Instantiate(Projectile, GetAttackPoint() , transform.rotation);
-        //Attack anim
-        Debug.Log("Attack!");
-
+        Rigidbody2D _projectile = Instantiate(Projectile, GetAttackPoint(), transform.rotation);
+        //Attack animation
         canAttack = false;
         _attackTimer = attackSpeed;
     }
@@ -132,6 +140,39 @@ public class PlayerController : MonoBehaviour
         attackPoint.y += attackOffset.y;
         attackPoint.x += charController.GetDirection() * attackOffset.x;
         return attackPoint;
+    }
+
+    public void Hurt(int damage)
+    {
+        if (isInvincible)
+            return;
+
+        health.Hurt(damage);
+        StartCoroutine("IFrames", 1f);
+        animator.SetTrigger("Hurt");
+       
+        if (health.IsDead())
+        {
+            Debug.Log("<color=red> You died </color> ");
+        }
+    }
+
+    private IEnumerator IFrames(float iFrame)
+    {
+        isInvincible = true;
+        renderer.color = new Color(220, 220, 220, 200);
+        light.intensity = 0.25f;
+        //light.color = new Color(255, 5, 5);
+        yield return new WaitForSeconds(iFrame);
+        renderer.color = new Color(255, 255, 255, 255);
+        isInvincible = false;
+        //light.color = new Color(255,174,175);
+        light.intensity = 1f;
+    }
+
+    public void Heal(int healing)
+    {
+        health.Heal(healing);
     }
 
     public void OnLand()
