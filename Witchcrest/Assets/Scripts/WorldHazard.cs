@@ -6,6 +6,9 @@ public class WorldHazard : MonoBehaviour
 {
     [Range(0,10), Tooltip("How much damage does the hazard deal? 0 means instant death")]
     [SerializeField] int damage;
+
+    [SerializeField]
+    private bool returnPlayerToCheckpoint = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
@@ -24,8 +27,9 @@ public class WorldHazard : MonoBehaviour
                 player.Hurt(player.health.GetMaxHealth());
             else
                 player.Hurt(damage);
-        
-            //Teleport to last checkpoint from game manager
+
+            if (returnPlayerToCheckpoint)
+                player.Teleport(GameManager.instance.GetCheckpoint().GetRespawnPoint());
         }
     }
 }

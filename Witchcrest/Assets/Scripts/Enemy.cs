@@ -46,7 +46,6 @@ public class Enemy : MonoBehaviour
             collision.gameObject.GetComponent<PlayerController>().Hurt(damage);
             Vector3 force = (collision.gameObject.transform.position - transform.position).normalized;
             force.x *= 10;
-            Debug.Log(force);
             collision.rigidbody.AddForce(force * knockback, ForceMode2D.Impulse);
         }
     }

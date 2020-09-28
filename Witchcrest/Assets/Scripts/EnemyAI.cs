@@ -71,7 +71,6 @@ public class EnemyAI : MonoBehaviour
         {
             if (state == EnemyState.Patrolling)
             {
-                Debug.Log("Waiting " + patrolDelay + " seconds to move to next patrolpoint");
                 StartCoroutine("NextPatrol");
             }
             //Continue following the player?
@@ -89,7 +88,6 @@ public class EnemyAI : MonoBehaviour
     /// <returns></returns>
     private void FindNextPoint()
     {
-        Debug.Log("Finding next waypoint");
         if (currentWaypoint >= patrolPoints.Length - 1 && !reachedEndOfPath)
         {
             reachedEndOfPath = true;

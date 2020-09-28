@@ -112,7 +112,7 @@ MonoBehaviour:
   hostileMask:
     serializedVersion: 2
     m_Bits: 2048
-  speed: 1.5
+  speed: 2
   GFX: {fileID: 5849074958070036763}
   canFly: 1
   AIEnabled: 1
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4001dc9cfdf65e7468a45bbe2ad10047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
   damage: 1
   knockback: 1
   animator: {fileID: 5849074958070036757}

@@ -154,6 +154,8 @@ public class PlayerController : MonoBehaviour
         if (health.IsDead())
         {
             Debug.Log("<color=red> You died </color> ");
+            //Create menu pop up, or at least fade screen to black
+            GameManager.instance.Respawn();
         }
     }
 
@@ -205,7 +207,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
+    public void Teleport(Transform location)
+    {
+        rigidbody.velocity = Vector3.zero;
+        transform.position = location.position;
+    }
 
     private void OnDrawGizmosSelected()
     {

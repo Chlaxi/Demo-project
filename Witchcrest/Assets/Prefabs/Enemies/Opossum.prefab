@@ -222,6 +222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+  damage: 1
+  knockback: 1
   animator: {fileID: 5016245282867268852}
   collider: {fileID: 1583448408}
   rigidbody: {fileID: 5016245282867268853}
