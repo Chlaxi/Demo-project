@@ -64,4 +64,10 @@ public class Enemy : MonoBehaviour
 
         //Eventually disappar?
     }
+
+    public void Kill()
+    {
+        health = 0;
+        Die();
+    }
 }
