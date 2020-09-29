@@ -22,7 +22,7 @@ public class HealthSO : ScriptableObject
     public int Heal(int healing)
     {
         if (maxHealth - currentHealth < healing)
-            Debug.LogFormat("Overheal! {1} hp to restore, tried healing {2}", maxHealth - currentHealth, healing);
+            Debug.LogFormat("Overheal! {0} hp to restore, tried healing {1}", maxHealth - currentHealth, healing);
         
         currentHealth += healing;
         CheckHealth();
@@ -54,6 +54,11 @@ public class HealthSO : ScriptableObject
     public void ResetHealth()
     {
         currentHealth = maxHealth;
+    }
+
+    public bool IsFull()
+    {
+        return currentHealth == maxHealth;
     }
 
     public bool IsDead()

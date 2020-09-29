@@ -173,10 +173,13 @@ public class PlayerController : MonoBehaviour
         light.intensity = 1f;
     }
 
-    public void Heal(int healing)
+    public bool Heal(int healing)
     {
+        if (health.IsFull())
+            return false;
+
         health.Heal(healing);
-       // GameManager.instance.healthbar.UpdateHealth();
+        return true;
     }
 
     public void OnLand()
