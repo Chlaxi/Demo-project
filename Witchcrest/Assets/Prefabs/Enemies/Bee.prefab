@@ -112,11 +112,13 @@ MonoBehaviour:
   hostileMask:
     serializedVersion: 2
     m_Bits: 2048
-  speed: 2
+  speed: 1.5
   GFX: {fileID: 5849074958070036763}
   canFly: 1
   AIEnabled: 1
   animator: {fileID: 5849074958070036757}
+  isAggressive: 1
+  chaseSpeedModifier: 1.2
   currentWaypoint: 0
   reachedEndOfPath: 0
   nextWaypointDistance: 0.5

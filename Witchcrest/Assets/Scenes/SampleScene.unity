@@ -3066,7 +3066,7 @@ GameObject:
   - component: {fileID: 241314739}
   - component: {fileID: 241314738}
   m_Layer: 5
-  m_Name: Text
+  m_Name: GemCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3142,7 +3142,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 32
+  m_Text: 0
 --- !u!222 &241314740
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3745,6 +3745,7 @@ MonoBehaviour:
   player: {fileID: 1920883343}
   playerHealth: {fileID: 11400000, guid: 667fa211447c2c4429a693d6cf5be6ab, type: 2}
   healthbar: {fileID: 1397845857}
+  gemCount: {fileID: 241314739}
 --- !u!4 &436225176
 Transform:
   m_ObjectHideFlags: 0
@@ -29936,7 +29937,7 @@ GameObject:
   - component: {fileID: 1696692572}
   - component: {fileID: 1696692571}
   m_Layer: 5
-  m_Name: Image
+  m_Name: GemUIIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33752,6 +33753,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bee
+      objectReference: {fileID: 0}
+    - target: {fileID: 5849074958060457779, guid: 7d2b222f848eb1d438cc8e06a19438d4,
+        type: 3}
+      propertyPath: isAggressive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5849074958060457779, guid: 7d2b222f848eb1d438cc8e06a19438d4,
+        type: 3}
+      propertyPath: chaseSpeedModifier
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5849074958060457779, guid: 7d2b222f848eb1d438cc8e06a19438d4,
+        type: 3}
+      propertyPath: speed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5849074958060457933, guid: 7d2b222f848eb1d438cc8e06a19438d4,
         type: 3}

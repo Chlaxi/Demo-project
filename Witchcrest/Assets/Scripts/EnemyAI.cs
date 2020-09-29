@@ -11,6 +11,9 @@ public class EnemyAI : MonoBehaviour
     public Transform target;
 
     public EnemyState state = EnemyState.Waiting;
+    public delegate void OnStateChange();
+    public OnStateChange AIStateChange;
+
     public float view = 3f;
     public LayerMask hostileMask;
 
@@ -20,13 +23,17 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] bool canFly = false;
     public bool AIEnabled = true;
 
-  
-   
     private Vector3 m_Velocity = Vector3.zero;
 
     Rigidbody2D rigid;
     [SerializeField] private Animator animator;
 
+    [Header("Behaviour")]
+    [SerializeField, Tooltip("Will the AI chase hostiles within range?")]
+    private bool isAggressive = false;
+    [SerializeField, Tooltip("A speed multiplier when chasing")]
+    private float chaseSpeedModifier = 1;
+    
     [Header("Patrol")]
     public int currentWaypoint = 0;
     public bool reachedEndOfPath = false;
@@ -39,10 +46,7 @@ public class EnemyAI : MonoBehaviour
     {
         rigid = GFX.GetComponent<Rigidbody2D>();
 
-        FlightCheck();
-
-        
-        
+        FlightCheck();       
     }
 
     // Update is called once per frame
@@ -58,11 +62,22 @@ public class EnemyAI : MonoBehaviour
             {
                 Debug.Log("Found hostile " + other.gameObject.name);
                 target = other.gameObject.transform;
-
+                if (isAggressive)
+                    SwitchState(EnemyState.Chasing);
             }
         }
 
-        //move
+        if(state == EnemyState.Chasing)
+        {
+            Collider2D other = Physics2D.OverlapCircle(GFX.transform.position, view + 1, hostileMask);
+            if(other == null)
+            {
+                Debug.Log("Hostile escaped going back to patrol");
+                target = null;
+                SwitchState(EnemyState.Patrolling);
+            }
+        }
+
         Move();
 
         float distance = Vector2.Distance(rigid.position, patrolPoints[currentWaypoint].position);
@@ -73,12 +88,13 @@ public class EnemyAI : MonoBehaviour
             {
                 StartCoroutine("NextPatrol");
             }
-            //Continue following the player?
         }
+    }
 
-        
-
-
+    private void SwitchState(EnemyState state)
+    {
+        this.state = state;
+        AIStateChange();
     }
 
     /// <summary>
@@ -114,8 +130,12 @@ public class EnemyAI : MonoBehaviour
         if (!AIEnabled)
             return;
             
-        Vector2 waypoint = ((Vector2)patrolPoints[currentWaypoint].position - rigid.position).normalized;
 
+        Vector2 waypoint = ((Vector2)patrolPoints[currentWaypoint].position - rigid.position).normalized;
+        
+        if(state == EnemyState.Chasing)
+            waypoint = ((Vector2)target.position - rigid.position).normalized * chaseSpeedModifier;
+        
         if (!canFly)
         {
             waypoint.y = 0;
@@ -145,11 +165,11 @@ public class EnemyAI : MonoBehaviour
 
             updatingPatrol = true;
 
-            state = EnemyState.Waiting;
+            SwitchState(EnemyState.Waiting);
             FindNextPoint();
 
             yield return new WaitForSeconds(patrolDelay);
-            state = EnemyState.Patrolling;
+            SwitchState(EnemyState.Patrolling);
 
            // target = patrolPoints[currentWaypoint];
             updatingPatrol = false;
