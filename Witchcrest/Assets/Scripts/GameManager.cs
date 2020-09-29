@@ -28,9 +28,11 @@ public class GameManager : MonoBehaviour
     public HealthbarHandler healthbar;
     private int gems;
     [SerializeField] private Text gemCount;
+    [SerializeField] private Dialogue dialogue;
 
     public void Start()
     {
+        UpdateGemCount();
         playerHealth.ResetHealth();
     }
 
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
             currentCheckpoint.Deactivate();
         
         currentCheckpoint = checkpoint;
+        ShowDialogue("Checkpoint Reached!");
     }
 
     public Checkpoint GetCheckpoint()
@@ -71,6 +74,11 @@ public class GameManager : MonoBehaviour
         player.Teleport(currentCheckpoint.GetRespawnPoint());
         playerHealth.ResetHealth();
         //Lives --?
+    }
+
+    public void ShowDialogue(string message)
+    {
+        dialogue.ShowMessage(message);
     }
 
     public void Restart()
