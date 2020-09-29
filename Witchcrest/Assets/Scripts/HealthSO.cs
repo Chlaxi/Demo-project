@@ -7,9 +7,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Health")]
 public class HealthSO : ScriptableObject
 {
-    [SerializeField]
+    [SerializeField, Min(1)]
     private int maxHealth;
-    [SerializeField]
+    [SerializeField, Min(0)]
     private int currentHealth;
 
     public int Hurt(int damage)

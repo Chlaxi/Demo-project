@@ -148,6 +148,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         health.Hurt(damage);
+        //GameManager.instance.healthbar.UpdateHealth();
         StartCoroutine("IFrames", 1f);
         animator.SetTrigger("Hurt");
        
@@ -175,6 +176,7 @@ public class PlayerController : MonoBehaviour
     public void Heal(int healing)
     {
         health.Heal(healing);
+       // GameManager.instance.healthbar.UpdateHealth();
     }
 
     public void OnLand()

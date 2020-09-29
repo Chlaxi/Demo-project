@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     private PlayerController player;
     [SerializeField]
     private HealthSO playerHealth;
+    public HealthbarHandler healthbar;
 
     public void SetCheckpoint(Checkpoint checkpoint)
     {
@@ -45,6 +46,5 @@ public class GameManager : MonoBehaviour
         player.Teleport(currentCheckpoint.GetRespawnPoint());
         playerHealth.ResetHealth();
         //Lives --?
-
     }
 }
