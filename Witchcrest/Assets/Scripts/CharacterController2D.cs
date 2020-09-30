@@ -98,6 +98,7 @@ public class CharacterController2D : MonoBehaviour
 		if (IsClimbing())
 		{
 			isClimbing = false;
+			StartCoroutine("PassThroughFloor");
 		}
 
 		if (IsGroundPassThrough() && isCrouching)
