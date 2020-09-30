@@ -123,13 +123,11 @@ public class PlayerController : MonoBehaviour
     {
         if (!canAttack)
             return;
+        Vector3 mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Debug.Log(Vector3.Angle(transform.position, new Vector3(mousepos.x, mousepos.y, 0)));
 
-        //Actual attack.
+        Rigidbody2D _projectile = Instantiate(Projectile, GetAttackPoint(), Quaternion.LookRotation(mousepos));
 
-
-
-        Rigidbody2D _projectile = Instantiate(Projectile, GetAttackPoint(), transform.rotation);
-        //Attack animation
         canAttack = false;
         _attackTimer = attackSpeed;
     }
